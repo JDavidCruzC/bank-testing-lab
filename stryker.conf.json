@@ -1,0 +1,26 @@
+{
+  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "packageManager": "npm",
+  "testRunner": "jest",
+  "reporters": ["html", "clear-text", "progress"],
+  "coverageAnalysis": "perTest",
+  "mutate": [
+    "src/services/money.js",
+    "src/services/accounts.service.js"
+  ],
+  "jest": {
+    "projectType": "custom",
+    "config": {
+      "testEnvironment": "node",
+      "testMatch": [
+        "**/tests/unit/**/*.test.js",
+        "**/tests/integration/**/*.test.js"
+      ]
+    }
+  },
+  "thresholds": {
+    "high": 80,
+    "low": 60,
+    "break": 50
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "bank-testing-lab",
+  "version": "2.0.0",
+  "description": "Laboratorio de calidad de software: API de cuentas y transferencias bancarias con 8 tipos de prueba.",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test:unit": "jest tests/unit",
+    "test:integration": "jest tests/integration --runInBand",
+    "test:e2e": "jest tests/e2e --runInBand",
+    "test:smoke": "jest tests/smoke --runInBand",
+    "test:regression": "jest tests/regression --runInBand",
+    "test:snapshot": "jest tests/snapshot",
+    "test:snapshot:update": "jest tests/snapshot --ci=false -u",
+    "test:contract:consumer": "jest tests/contract/consumer",
+    "test:contract:provider": "jest tests/contract/provider --runInBand",
+    "test:mutation": "stryker run",
+    "test:coverage": "jest --coverage --runInBand tests/unit tests/integration tests/e2e tests/smoke tests/regression tests/snapshot"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "pg": "^8.12.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0",
+    "@stryker-mutator/core": "^8.2.6",
+    "@stryker-mutator/jest-runner": "^8.2.6",
+    "@pact-foundation/pact": "^13.1.3"
+  }
+}
