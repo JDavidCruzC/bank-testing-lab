@@ -11,8 +11,13 @@ function toUnits(cents) {
   return cents / 100;
 }
 
+//function formatMoney(cents, currency = "PEN") {
+//  const units = (cents / 100).toString();
+//  return `${currency} ${units}`;
+//}
+
 function formatMoney(cents, currency = "PEN") {
-  const units = (cents / 100).toString();
+  const units = (cents / 100).toFixed(2);
   return `${currency} ${units}`;
 }
 
@@ -30,8 +35,12 @@ function validateAmount(cents) {
   return true;
 }
 
+//function canWithdraw(balanceCents, amountCents) {
+//  return balanceCents > amountCents;
+//}
+
 function canWithdraw(balanceCents, amountCents) {
-  return balanceCents > amountCents;
+  return balanceCents >= amountCents;
 }
 
 function applyFee(amountCents, feeBps) {
