@@ -1,0 +1,352 @@
+{
+  "consumer": {
+    "name": "AppMovilBanco"
+  },
+  "interactions": [
+    {
+      "description": "una solicitud de transferencia con fondos insuficientes",
+      "providerStates": [
+        {
+          "name": "la cuenta 1 tiene saldo insuficiente"
+        }
+      ],
+      "request": {
+        "body": {
+          "amountCents": 999999,
+          "fromId": 1,
+          "toId": 2
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "method": "POST",
+        "path": "/transfers"
+      },
+      "response": {
+        "body": {
+          "error": "Fondos insuficientes"
+        },
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "matchingRules": {
+          "body": {
+            "$.error": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 422
+      }
+    },
+    {
+      "description": "una solicitud de transferencia de la cuenta 1 a si misma",
+      "providerStates": [
+        {
+          "name": "la cuenta 1 existe"
+        }
+      ],
+      "request": {
+        "body": {
+          "amountCents": 100,
+          "fromId": 1,
+          "toId": 1
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "method": "POST",
+        "path": "/transfers"
+      },
+      "response": {
+        "body": {
+          "error": "No se puede transferir a la misma cuenta"
+        },
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "matchingRules": {
+          "body": {
+            "$.error": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 400
+      }
+    },
+    {
+      "description": "una solicitud de transferencia valida",
+      "providerStates": [
+        {
+          "name": "la cuenta 1 tiene saldo suficiente y la cuenta 2 existe"
+        }
+      ],
+      "request": {
+        "body": {
+          "amountCents": 500,
+          "fromId": 1,
+          "toId": 2
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "method": "POST",
+        "path": "/transfers"
+      },
+      "response": {
+        "body": {
+          "amount": 500,
+          "from_account": 1,
+          "id": 1,
+          "to_account": 2
+        },
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "matchingRules": {
+          "body": {
+            "$.amount": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.from_account": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.to_account": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 201
+      }
+    },
+    {
+      "description": "una solicitud para consultar la cuenta 1",
+      "providerStates": [
+        {
+          "name": "la cuenta 1 existe con saldo 1500"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/accounts/1"
+      },
+      "response": {
+        "body": {
+          "balance": 1500,
+          "currency": "PEN",
+          "id": 1,
+          "owner": "ClienteMovil"
+        },
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "matchingRules": {
+          "body": {
+            "$.balance": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.currency": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.owner": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 200
+      }
+    },
+    {
+      "description": "una solicitud para consultar la cuenta 999",
+      "providerStates": [
+        {
+          "name": "la cuenta 999 no existe"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/accounts/999"
+      },
+      "response": {
+        "body": {
+          "error": "Cuenta no encontrada"
+        },
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "matchingRules": {
+          "body": {
+            "$.error": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 404
+      }
+    },
+    {
+      "description": "una solicitud para crear una cuenta",
+      "providerStates": [
+        {
+          "name": "no existen precondiciones"
+        }
+      ],
+      "request": {
+        "body": {
+          "owner": "ClienteMovil"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "method": "POST",
+        "path": "/accounts"
+      },
+      "response": {
+        "body": {
+          "balance": 0,
+          "currency": "PEN",
+          "id": 1,
+          "owner": "ClienteMovil",
+          "status": "active"
+        },
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "matchingRules": {
+          "body": {
+            "$.balance": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.currency": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.owner": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 201
+      }
+    }
+  ],
+  "metadata": {
+    "pact-js": {
+      "version": "13.2.0"
+    },
+    "pactRust": {
+      "ffi": "0.4.22",
+      "models": "1.2.3"
+    },
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  },
+  "provider": {
+    "name": "ApiCuentasBancarias"
+  }
+}
