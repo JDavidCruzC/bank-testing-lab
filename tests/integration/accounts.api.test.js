@@ -127,4 +127,11 @@ describe("Cuentas y saldos (integracion con Postgres real)", () => {
   test.todo(
     "un deposito con amountCents decimal (por ejemplo 100.5) es rechazado con codigo 400"
   );
+  test.todo(
+    "POST /accounts crea dos cuentas consecutivas con identificadores diferentes"
+  );
+
+  test.todo(
+    "GET /accounts devuelve las cuentas ordenadas por identificador"
+  );
 });

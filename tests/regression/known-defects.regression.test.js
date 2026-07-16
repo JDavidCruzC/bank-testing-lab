@@ -39,4 +39,11 @@ describe("Regresion (defectos historicos que no deben reaparecer)", () => {
   test.todo(
     "BUG-160: verificar que un titular con espacios al inicio y al final ya no genera cuentas duplicadas logicamente distintas"
   );
+  test.todo(
+    "BUG-152: toUnits conserva precision con cantidades mayores a diez millones"
+  );
+
+  test.todo(
+    "BUG-160: owner con espacios no genera cuentas duplicadas"
+  );
 });

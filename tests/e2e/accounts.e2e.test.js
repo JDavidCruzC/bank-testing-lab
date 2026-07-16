@@ -116,4 +116,11 @@ describe("API bancaria (E2E contra el stack completo)", () => {
   test.todo(
     "un retiro por encima del saldo disponible responde con codigo 422 y no altera el saldo"
   );
+  test.todo(
+    "una consulta a una cuenta inexistente responde con codigo 404"
+  );
+
+  test.todo(
+    "un retiro superior al saldo disponible responde con codigo 422"
+  );
 });

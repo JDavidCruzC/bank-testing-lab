@@ -172,4 +172,11 @@ describe("Contrato: AppMovilBanco consume ApiCuentasBancarias", () => {
   test.todo(
     "GET /accounts responde 200 con un arreglo de cuentas"
   );
+  test.todo(
+    "POST /accounts/:id/deposit responde con saldo actualizado"
+  );
+
+  test.todo(
+    "GET /accounts devuelve un arreglo de cuentas"
+  );
 });

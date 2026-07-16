@@ -40,6 +40,29 @@ describe("money (pruebas unitarias)", () => {
     expect(applyFee(10000, 50)).toBe(10050);
     expect(applyFee(10000, 0)).toBe(10000);
   });
+//-------------------------------------------------
+
+  test("validateAmount rechaza valores negativos", () => {
+    expect(validateAmount(-100)).toBe(false);
+  });
+
+  test("formatMoney formatea correctamente montos grandes", () => {
+    expect(formatMoney(123456789)).toBe("S/ 1,234,567.89");
+  });
+
+  //-------------------------------------------------
+  //-------------------------------------------------
+
+  test("computeInterest calcula correctamente el interes anual", () => {
+    expect(computeInterest(10000, 10)).toBe(1000);
+  });
+
+  test("canWithdraw rechaza retiros mayores al saldo", () => {
+    expect(canWithdraw(1000, 1500)).toBe(false);
+  });
+
+  //-------------------------------------------------
+
 
   test.todo(
     "computeInterest calcula el interes simple para 30 dias al 12% anual sobre 100000 centimos"
@@ -48,4 +71,6 @@ describe("money (pruebas unitarias)", () => {
   test.todo(
     "toCents redondea correctamente 19.999 a 2000 centimos y no a 1999"
   );
+
+
 });

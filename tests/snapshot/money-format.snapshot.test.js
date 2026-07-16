@@ -59,4 +59,11 @@ describe("Snapshot testing (formato y estructuras de salida)", () => {
   test.todo(
     "capturar el snapshot de buildTransferReceipt para un monto con tres cifras de centimos redondeadas"
   );
+  test.todo(
+    "capturar snapshot de POST /accounts usando property matchers"
+  );
+
+  test.todo(
+    "capturar snapshot de recibo con centimos redondeados"
+  );
 });

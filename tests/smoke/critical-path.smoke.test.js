@@ -93,4 +93,11 @@ describe("Smoke test (verificacion critica post-despliegue)", () => {
   test.todo(
     "las cinco rutas principales (health, accounts, deposit, withdraw, transfers) responden todas dentro de un mismo recorrido secuencial sin error 500"
   );
+  test.todo(
+    "el servicio mantiene disponibilidad despues de varias operaciones consecutivas"
+  );
+
+  test.todo(
+    "la API responde correctamente tras crear varias cuentas"
+  );
 });
